@@ -1,6 +1,7 @@
 package awssdk
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -66,6 +67,7 @@ func (s *SDKImplementation) SendEmail(dto SendEmailDto) error {
 	_, err := s.svc.SendEmail(input)
 
 	if err != nil {
+		fmt.Println("Error sending email: ", err)
 		return err
 	}
 
