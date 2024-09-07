@@ -3,8 +3,8 @@ package main
 import (
 	"notifier/config"
 	"notifier/internal/presenter/controllers"
-	awssdk "notifier/pkg/aws"
 	"notifier/pkg/http"
+	"notifier/pkg/resend"
 	"notifier/pkg/validator"
 
 	"go.uber.org/fx"
@@ -15,7 +15,8 @@ func main() {
 		config.Module,
 		http.Module,
 		validator.Module,
-		awssdk.Module,
+		// awssdk.Module,
+		resend.Module,
 		controllers.NotifierControllerModule,
 		fx.Invoke(http.RunHttpServer),
 	).Run()

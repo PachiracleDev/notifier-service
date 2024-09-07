@@ -12,15 +12,20 @@ import (
 type Config struct {
 	App    AppConfig
 	Server ServerConfig
-
-	AWS  AWSConfig
-	Auth AuthConfig
+	Resend ResendConfig
+	AWS    AWSConfig
+	Auth   AuthConfig
 }
 
 type AppConfig struct {
 	Name    string
 	Version string
 	Env     string
+}
+
+type ResendConfig struct {
+	ApiKey string
+	From   string
 }
 
 type ServerConfig struct {
@@ -70,6 +75,10 @@ func NewConfig() *Config {
 		Auth: AuthConfig{
 			Username: os.Getenv("AUTH_USERNAME"),
 			Password: os.Getenv("AUTH_PASSWORD"),
+		},
+		Resend: ResendConfig{
+			ApiKey: os.Getenv("RESEND_API_KEY"),
+			From:   os.Getenv("RESEND_FROM"),
 		},
 	}
 

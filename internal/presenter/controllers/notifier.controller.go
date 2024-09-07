@@ -4,8 +4,10 @@ import (
 	"notifier/internal/app/usecases"
 	"notifier/internal/constants"
 	"notifier/internal/presenter/dtos"
-	awssdk "notifier/pkg/aws"
+
+	// awssdk "notifier/pkg/aws"
 	"notifier/pkg/http"
+	resendImp "notifier/pkg/resend"
 	"notifier/pkg/validator"
 
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +15,8 @@ import (
 
 func NotifierController(http *http.HttpServer,
 	validate *validator.XValidator,
-	aws *awssdk.SDKImplementation,
+	// aws *awssdk.SDKImplementation,
+	resend *resendImp.ResendImplementation,
 ) {
 	http.BasicAuthMiddleware()
 	api := http.App().Group("/notifier")
@@ -51,7 +54,7 @@ func NotifierController(http *http.HttpServer,
 			})
 		}
 
-		go aws.SendEmail(awssdk.SendEmailDto{
+		go resend.SendEmail(resendImp.SendEmailResendDto{
 			Recipient: body.To,
 			Subject:   subject,
 			HtmlBody:  html,
